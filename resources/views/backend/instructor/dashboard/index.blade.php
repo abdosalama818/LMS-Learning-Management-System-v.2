@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="page-content">
-{{-- 
+ 
         @if (!isApprovedUser())
             <div class="alert alert-danger border-0 bg-danger alert-dismissible fade show">
                 <div class="text-white">
@@ -11,7 +11,7 @@
 
             </div>
         @endif
- --}}
+
 
         <div class="row row-cols-1 row-cols-md-2 row-cols-xl-4">
             <div class="col">

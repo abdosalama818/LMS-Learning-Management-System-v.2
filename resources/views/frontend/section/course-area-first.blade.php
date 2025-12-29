@@ -1,3 +1,8 @@
+<?php
+$categories = getCategories();
+?>
+
+
 <section class="course-area pb-120px">
     <div class="container">
         <div class="section-heading text-center">
@@ -22,7 +27,7 @@
         <div class="container">
             <div class="tab-content" id="myTabContent">
 
-                @foreach ($course_category as $index => $data)
+          {{--       @foreach ($course_category as $index => $data)
                     <div class="tab-pane fade {{ $index == 0 ? 'show active' : '' }}" id="{{ $data->slug }}"
                         role="tabpanel" aria-labelledby="{{ $data->slug }}-tab">
                         <div class="row">
@@ -129,7 +134,7 @@
 
                         </div><!-- end row -->
                     </div><!-- end tab-pane -->
-                @endforeach
+                @endforeach --}}
 
             </div><!-- end tab-content -->
             <div class="more-btn-box mt-4 text-center">

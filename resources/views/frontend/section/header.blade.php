@@ -114,19 +114,19 @@ $categories = getCategories();
                                         <a href="#">Categories <i class="la la-angle-down fs-12"></i></a>
                                         <ul class="cat-dropdown-menu">
 
-                                            @foreach($categories as $item)
+                                             @foreach($categories as $item)
                                             <li>
                                                 <a href="course-grid.html">{{$item->name}} <i
                                                         class="la la-angle-right"></i></a>
                                                 <ul class="sub-menu">
-                                                    @foreach ($item['subcategory'] as $data)
+                                                    @foreach ($item->subcategories as $data)
                                                     <li><a href="#">{{$data->name}}</a></li>
                                                     @endforeach
 
                                                 </ul>
                                             </li>
                                             @endforeach
-
+ -
 
 
                                         </ul>
@@ -178,20 +178,20 @@ $categories = getCategories();
                                             </svg>
 
                                             <?php
-                                            if (auth()->check()) {
-                                                $user_id = auth()->user()->id; // Get the authenticated user's ID
-                                                $wishlist = getWishlist(); // Get wishlist data
-                                                $wishlist_count = \App\Models\Wishlist::where('user_id', $user_id)->count(); // Count wishlist items
-                                            } else {
+                                        //    if (auth()->check()) {
+                                              //  $user_id = auth()->user()->id; // Get the authenticated user's ID
+                                             //   $wishlist = getWishlist(); // Get wishlist data
+                                             //   $wishlist_count = \App\Models\Wishlist::where('user_id', $user_id)->count(); // Count wishlist items
+                                      //      } else {
                                                 // Handle the case when the user is not logged in
-                                                $wishlist = collect(); // Empty collection if not logged in
-                                                $wishlist_count = 0; // No wishlist count if not logged in
-                                            }
-                                            ?>
+                                             //   $wishlist = collect(); // Empty collection if not logged in
+                                           //     $wishlist_count = 0; // No wishlist count if not logged in
+                                         //   }
+                                         //   ?>
 
 
                                             <span class="product-count" id="wishlist-count"
-                                                style="margin-left: 5px">{{ $wishlist_count }}</span>
+                                                style="margin-left: 5px">{{-- {{ $wishlist_count }} --}}</span>
 
                                         </p>
 

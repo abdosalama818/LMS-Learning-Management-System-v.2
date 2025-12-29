@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 
 class SubCategory extends Model
@@ -30,5 +31,15 @@ class SubCategory extends Model
                 ];
             }
         );
+    }
+
+
+
+        const CACHE_KEY = 'categories_with_subs';
+
+    public static function booted()
+    {
+        static::saved(fn () => Cache::forget(self::CACHE_KEY));
+        static::deleted(fn () => Cache::forget(self::CACHE_KEY));
     }
 }

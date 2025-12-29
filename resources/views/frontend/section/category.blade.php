@@ -1,3 +1,8 @@
+<?php
+/* $all_categories = getCategories();
+ */?>
+
+
 <section class="category-area pb-90px">
     <div class="container">
         <div class="row align-items-center">

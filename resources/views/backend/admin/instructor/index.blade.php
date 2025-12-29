@@ -53,7 +53,7 @@
                                     <td>{{ $item->email }}</td>
                                     <td>{{ $item->phone }}</td>
                                     <td>
-                                        @if ($item->status == 1)
+                                        @if ($item->status === 'active')
                                             <span class="badge bg-primary px-3 py-2" style="font-weight: 200">Active</span>
                                         @else
                                             <span class="badge bg-danger px-3 py-2" style="font-weight: 200">Inactive</span>
@@ -64,7 +64,7 @@
                                             <input class="form-check-input" style="cursor: pointer" type="checkbox" role="switch"
                                                 id="flexSwitchCheckDefault{{ $item->id }}"
                                                 data-user-id="{{ $item->id }}"
-                                                {{ $item->status == 1 ? 'checked' : '' }}>
+                                                {{ $item->status == 'active' ? 'checked' : 'inactive' }}>
                                         </div>
                                     </td>
                                 </tr>
@@ -86,7 +86,7 @@
         $(document).ready(function() {
             $('.form-check-input').on('change', function() {
                 const userId = $(this).data('user-id'); // Get user ID
-                const status = $(this).is(':checked') ? 1 : 0; // Get status (1: Active, 0: Inactive)
+                const status = $(this).is(':checked') ? 'active' : 'inactive'; // Get status (1: Active, 0: Inactive)
                 const row = $(this).closest('tr'); // Find the parent row of the checkbox
 
                 $.ajax({
@@ -101,7 +101,7 @@
                         if (response.success) {
                             // Update the status badge dynamically
                             const statusBadge = row.find('td:nth-child(6) .badge');
-                            if (status === 1) {
+                            if (status === "active") {
                                 statusBadge
                                     .removeClass('bg-danger')
                                     .addClass('bg-primary')
