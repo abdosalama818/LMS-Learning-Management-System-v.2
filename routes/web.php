@@ -7,6 +7,7 @@ use App\Http\Controllers\Dashboard\Admin\Category\CategoryController;
 use App\Http\Controllers\Dashboard\Admin\Category\SubCategoryController;
 use App\Http\Controllers\Dashboard\Admin\Info\InfoController;
 use App\Http\Controllers\Dashboard\Admin\Slider\SliderController;
+use App\Http\Controllers\Dashboard\Instructor\Course\CourseController;
 use App\Http\Controllers\Dashboard\Instructor\InstructorController;
 use App\Http\Controllers\Site\FrontendDashboardController;
 use Illuminate\Support\Facades\Route;
@@ -57,7 +58,8 @@ Route::group([
    Route::post('passwordSetting',[InstructorController::class,'resetPassword'])->name('passwordSetting');
    Route::post("instructor/register", [InstructorController::class, 'instructorRegister'])->name('register');
 
-   Route::resource('course', InstructorController::class);
+   Route::resource('course', CourseController::class);
+   Route::get('get-subcategories/{category_id}', [CourseController::class, 'getSubcategories'])->name('get-subcategories');
 });
 
 

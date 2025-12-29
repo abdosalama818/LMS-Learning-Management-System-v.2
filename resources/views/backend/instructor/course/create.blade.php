@@ -46,7 +46,7 @@
                             </div>
                         @endif
 
-                        <input type="hidden" name="instructor_id" value="{{ auth()->user()->id }}" />
+                        <input type="hidden" name="instructor_id" value="{{ auth('instructor')->user()->id }}" />
 
 
 

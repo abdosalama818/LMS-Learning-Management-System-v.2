@@ -41,7 +41,7 @@ $(document).ready(function () {
 
             if (categoryId) {
                 $.ajax({
-                    url: '/instructor/get-subcategories/' + categoryId,
+                    url: '/instructor/dashboard/get-subcategories/' + categoryId,
                     type: 'GET',
 
                     headers: {
