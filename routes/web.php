@@ -60,6 +60,7 @@ Route::group([
 
    Route::resource('course', CourseController::class);
    Route::get('get-subcategories/{category_id}', [CourseController::class, 'getSubcategories'])->name('get-subcategories');
+   Route::get('get-course-section', [CourseController::class, 'getSubcategories'])->name('course-section.show');
 });
 
 

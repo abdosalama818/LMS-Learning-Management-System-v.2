@@ -3,10 +3,12 @@
 namespace App\Providers;
 
 use App\Interface\CategoryInterface;
+use App\Interface\CourseInterface;
 use App\Interface\ProfileInterface;
 use App\Interface\SliderInterface;
 use App\Interface\SubCategoryInterface;
 use App\Repository\CategoryRepository;
+use App\Repository\CourseRepository;
 use App\Repository\ProfileRepository;
 use App\Repository\SliderRepository;
 use App\Repository\SubCategoryRepository;
@@ -24,6 +26,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(CategoryInterface::class, CategoryRepository::class);
         $this->app->bind(SubCategoryInterface::class, SubCategoryRepository::class);
         $this->app->bind(SliderInterface::class, SliderRepository::class);
+        $this->app->bind(CourseInterface::class, CourseRepository::class);
     }
 
     /**

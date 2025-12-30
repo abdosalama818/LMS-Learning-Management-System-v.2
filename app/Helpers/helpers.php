@@ -57,4 +57,16 @@ if(!function_exists('isApprovedUser')){
    
 }
 
+
+if (!function_exists('makeArabicSlug')) {
+function makeArabicSlug($string) {
+    // استبدال المسافات بشرطة
+    $slug = preg_replace('/\s+/u', '-', trim($string));
+    // إزالة الرموز غير المرغوب فيها
+    $slug = preg_replace('/[^\p{L}\p{N}\-]+/u', '', $slug);
+    return mb_strtolower($slug);
+}
+
+}
+
  

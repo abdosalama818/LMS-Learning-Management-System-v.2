@@ -46,20 +46,12 @@
                             </div>
                         @endif
 
-                        <input type="hidden" name="instructor_id" value="{{ auth('instructor')->user()->id }}" />
-
-
-
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <label for="name" class="form-label">Course Name</label>
                             <input type="text" class="form-control" name="course_name" id="name"
                                 placeholder="Enter the course name" value="{{ old('course_name') }}" required>
                         </div>
-                        <div class="col-md-6">
-                            <label for="slug" class="form-label">Slug</label>
-                            <input type="text" class="form-control" name="course_name_slug" id="slug"
-                                placeholder="Enter the slug" value="{{ old('course_name_slug') }}" required>
-                        </div>
+               
 
                         <div class="col-md-12">
                             <label for="course_title" class="form-label">Course Title</label>
@@ -81,7 +73,7 @@
                         <div class="col-md-6">
                             <label for="subcategory" class="form-label">Select SubCategory</label>
                             <select class="form-select" name="subcategory_id" id="subcategory"
-                                data-placeholder="Choose a subcategory" required>
+                                data-placeholder="Choose a subcategory" >
                                 <option value="" disabled selected>Select a subcategory</option>
                             </select>
                         </div>
@@ -89,7 +81,7 @@
 
                         <div class="col-md-6">
                             <label for="image" class="form-label">Image</label>
-                            <input type="file" class="form-control" name="image" id="Photo" accept="image/*">
+                            <input type="file" class="form-control" name="course_image" id="Photo" accept="image/*">
 
                             <div style="margin-top: 10px">
 

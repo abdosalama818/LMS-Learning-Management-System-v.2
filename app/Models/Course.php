@@ -9,12 +9,15 @@ class Course extends Model
 {
    protected $guarded = [];
 
-protected static function booted()
+
+
+   protected static function booted()
 {
-    static::creating(function ($course) {
-        $course->course_name_slug = Str::slug($course->course_name, '-');
+    static::saving(function ($course) {
+        $course->course_name_slug = makeArabicSlug($course->course_name);
     });
 }
+
 
     public function category()
     {
@@ -31,6 +34,11 @@ protected static function booted()
         return $this->belongsTo(Instructor::class, 'instructor_id', 'id');
     }
 
+
+    public function courseGoals()
+    {
+        return $this->hasMany(CourseGoal::class, 'course_id', 'id');
+    }
 
 
 }

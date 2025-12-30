@@ -32,7 +32,7 @@
 
                     </div>
 
-                    <form class="row g-3" method="post" action="{{ route('instructor.course.update', $course->id) }}"
+                    <form class="row g-3" method="post" action="{{ route('instructor.course.update', $course) }}"
                         enctype="multipart/form-data">
                         @csrf
 
@@ -48,7 +48,6 @@
                             </div>
                         @endif
 
-                        <input type="hidden" name="instructor_id" value="{{ auth()->user()->id }}" />
 
 
 
@@ -57,12 +56,7 @@
                             <input type="text" class="form-control" name="course_name" id="name"
                                 placeholder="Enter the course name" value="{{ old('course_name', $course->course_name) }}">
                         </div>
-                        <div class="col-md-6">
-                            <label for="slug" class="form-label">Slug</label>
-                            <input type="text" class="form-control" name="course_name_slug" id="slug"
-                                placeholder="Enter the slug"
-                                value="{{ old('course_name_slug', $course->course_name_slug) }}">
-                        </div>
+                     
 
                         <div class="col-md-12">
                             <label for="course_title" class="form-label">Course Title</label>
@@ -88,7 +82,7 @@
                             <label for="subcategory" class="form-label">Select SubCategory</label>
                             <select class="form-select" name="subcategory_id" id="subcategory"
                                 data-placeholder="Choose a subcategory">
-                                <option value="{{ $course->subcategory_id }}" selected>{{ $course->subCategory['name'] }}
+                                <option value="{{  $course->subcategory_id  }}"{{ $course->subcategory_id ? 'selected' : '' }} >{{ $course->subCategory['name'] ?? 'Select SubCategory' }}
                                 </option>
                             </select>
                         </div>
@@ -96,10 +90,10 @@
 
                         <div class="col-md-6">
                             <label for="image" class="form-label">Image</label>
-                            <input type="file" class="form-control" name="image" id="Photo" accept="image/*">
+                            <input type="file" class="form-control" name="course_image" id="Photo" accept="image/*">
 
                             <div style="margin-top: 5px">
-                                <img src="{{ asset($course->course_image) }}" id="photoPreview" class="img-fluid"
+                                <img src="{{ asset('uploads/'.$course->course_image) }}" id="photoPreview" class="img-fluid"
                                     style="margin-top: 15px; {{ $course->course_image ? '' : 'display: none;' }}">
                             </div>
                         </div>
@@ -203,11 +197,11 @@
                             </label>
                             <div id="goalContainer">
 
-                                @foreach ($course_goals as $data)
+                                @foreach ($course_goals as $goal)
                                     <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
 
                                         <input type="text" class="form-control" name="course_goals[]"
-                                            placeholder="Enter Course Goal" value="{{ $data->goal_name }}" />
+                                            placeholder="Enter Course Goal" value="{{ $goal }}" />
                                         <button type="button" class="btn btn-danger removeGoalInput">-</button>
 
 

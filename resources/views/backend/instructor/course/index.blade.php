@@ -46,7 +46,7 @@
                                 <td>{{$index+1}}</td>
                                 <td>
                                     @if($item->course_image)
-                                    <img src="{{asset($item->course_image)}}"  width="140" height="70"/>
+                                    <img src="{{asset('uploads/'.$item->course_image)}}"  width="140" height="70"/>
                                     @else
                                     <span>No image found</span>
                                     @endif
