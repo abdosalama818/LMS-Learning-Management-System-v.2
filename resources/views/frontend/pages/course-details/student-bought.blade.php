@@ -6,8 +6,8 @@
         <div class="card card-item card-item-list-layout border border-gray shadow-none">
             <div class="card-image">
                 <a href="course-details.html" class="d-block">
-                    <img class="card-img-top lazy" src="{{ asset($course->course_image) }}"
-                        data-src="{{ asset($course->course_image) }}" alt="Card image cap">
+                    <img class="card-img-top lazy" src="{{ asset('uploads/' . $course->course_image) }}"
+                        data-src="{{ asset('uploads/' . $course->course_image) }}" alt="Card image cap">
                 </a>
                 <div class="course-badge-labels">
 
@@ -37,7 +37,7 @@
 
                 <p class="card-text">
                     <a href="#">
-                        {{ $course['user']['name'] }}
+                        {{ $course['instructor']['name'] }}
                     </a>
                 </p>
 
@@ -57,10 +57,7 @@
 
                     <div class="icon-element icon-element-sm shadow-sm cursor-pointer wishlist-icon"
                         title="Add to Wishlist" data-course-id="{{ $course->id }}">
-
-
-
-
+                        <i class="la la-heart-o"></i>
                     </div>
 
 

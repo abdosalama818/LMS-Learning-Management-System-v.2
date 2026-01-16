@@ -11,12 +11,12 @@
                     <li>
                         <div class="media media-card">
                             <a href="course-details.html" class="media-img">
-                                <img class="mr-3" src="{{ asset($item->course->course_image) }}" alt="Cart image">
+                                <img class="mr-3" src="{{ asset("uploads/" . $item->course->course_image) }}" alt="Cart image">
 
                             </a>
                             <div class="media-body">
                                 <h5><a href="course-details.html">{{ $item->course->course_name }}</a></h5>
-                                <span class="d-block lh-18 py-1">{{ $item->course->user->name }}</span>
+                                <span class="d-block lh-18 py-1">{{ $item->course->instructor->name }}</span>
 
 
                                 <p class="text-black font-weight-semi-bold lh-18">
@@ -40,3 +40,7 @@
         </li>
     </ul>
 </div><!-- end shop-cart -->
+
+@push('scripts')
+    <script src="{{ asset('customjs/user/wishlist.js') }}"></script>
+@endpush

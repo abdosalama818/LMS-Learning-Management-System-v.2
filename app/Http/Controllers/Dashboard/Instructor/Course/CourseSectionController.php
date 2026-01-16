@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers\Dashboard\Instructor\Course;
 
+use \App\Services\SectionServices;
 use App\Http\Controllers\Controller;
+use App\Models\Course;
+use App\Models\CourseSection;
 use Illuminate\Http\Request;
 
 class CourseSectionController extends Controller
@@ -26,9 +29,14 @@ class CourseSectionController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request , SectionServices $sectionServices)
     {
-        //
+        try {
+            $section = $sectionServices->storeSection($request);
+            return redirect()->back()->with('success', 'Course section created successfully.');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'An error occurred while creating the course section: ' . $e->getMessage());
+        }
     }
 
     /**
@@ -36,7 +44,9 @@ class CourseSectionController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $course = Course::findOrFail($id);
+         $course_wise_lecture = $course->courseSections()->with('lectures')->get();
+        return view('backend.instructor.course-section.index', compact('course', 'course_wise_lecture'));
     }
 
     /**
@@ -58,8 +68,13 @@ class CourseSectionController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $id , SectionServices $sectionServices)
     {
-        //
+        try {
+            $sectionServices->deleteSection($id);
+            return redirect()->back()->with('success', 'Course section deleted successfully.');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'An error occurred while deleting the course section: ' . $e->getMessage());
+        }
     }
 }

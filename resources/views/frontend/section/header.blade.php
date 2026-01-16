@@ -1,4 +1,3 @@
-
 <?php
 $categories = getCategories();
 ?>
@@ -57,16 +56,12 @@ $categories = getCategories();
                                 <li class="d-flex align-items-center pr-3 mr-3 border-right border-right-gray"><i
                                         class="la la-sign-in mr-1"></i>
 
-                                    @if (auth()->user()->role == 'user')
+                                    @if (auth('admin')->check())
+                                        <a href="{{ route('admin.dashboard') }}">Admin Dashboard</a>
+                                    @elseif (auth('instructor')->check())
+                                        <a href="{{ route('instructor.dashboard') }}">Instructor Dashboard</a>
+                                    @elseif (auth('web')->check())
                                         <a href="{{ route('user.dashboard') }}">Dashboard</a>
-                                    @endif
-
-                                    @if (auth()->user()->role == 'admin')
-                                        <a href="{{ route('admin.dashboard') }}">Dashboard</a>
-                                    @endif
-
-                                    @if (auth()->user()->role == 'instructor')
-                                        <a href="{{ route('instructor.dashboard') }}">Dashboard</a>
                                     @endif
                                 </li>
 
@@ -89,7 +84,8 @@ $categories = getCategories();
                 <div class="row align-items-center">
                     <div class="col-lg-2">
                         <div class="logo-box">
-                            <a href="{{ route('frontend.home') }}" class="logo"><img src="{{asset('frontend/images/logo.png')}}" alt="logo"></a>
+                            <a href="{{ route('frontend.home') }}" class="logo"><img
+                                    src="{{ asset('frontend/images/logo.png') }}" alt="logo"></a>
                             <div class="user-btn-action">
                                 <div class="search-menu-toggle icon-element icon-element-sm shadow-sm mr-2"
                                     data-toggle="tooltip" data-placement="top" title="Search">
@@ -114,19 +110,19 @@ $categories = getCategories();
                                         <a href="#">Categories <i class="la la-angle-down fs-12"></i></a>
                                         <ul class="cat-dropdown-menu">
 
-                                             @foreach($categories as $item)
-                                            <li>
-                                                <a href="course-grid.html">{{$item->name}} <i
-                                                        class="la la-angle-right"></i></a>
-                                                <ul class="sub-menu">
-                                                    @foreach ($item->subcategories as $data)
-                                                    <li><a href="#">{{$data->name}}</a></li>
-                                                    @endforeach
+                                            @foreach ($categories as $item)
+                                                <li>
+                                                    <a href="course-grid.html">{{ $item->name }} <i
+                                                            class="la la-angle-right"></i></a>
+                                                    <ul class="sub-menu">
+                                                        @foreach ($item->subcategories as $data)
+                                                            <li><a href="#">{{ $data->name }}</a></li>
+                                                        @endforeach
 
-                                                </ul>
-                                            </li>
+                                                    </ul>
+                                                </li>
                                             @endforeach
- -
+                                            -
 
 
                                         </ul>
@@ -147,7 +143,7 @@ $categories = getCategories();
 
                                     </li>
                                     <li>
-                                        <a href="#"">All Courses </a>
+                                        <a href="#">All Courses </a>
 
                                     </li>
                                     <li>
@@ -164,9 +160,9 @@ $categories = getCategories();
 
 
 
-                             <!-----wishlist start--->
+                            <!-----wishlist start--->
 
-                             <div class="shop-cart mr-4">
+                            <div class="shop-cart mr-4">
                                 <ul>
                                     <li>
                                         <p class="shop-cart-btn d-flex align-items-center">
@@ -178,27 +174,28 @@ $categories = getCategories();
                                             </svg>
 
                                             <?php
-                                        //    if (auth()->check()) {
-                                              //  $user_id = auth()->user()->id; // Get the authenticated user's ID
-                                             //   $wishlist = getWishlist(); // Get wishlist data
-                                             //   $wishlist_count = \App\Models\Wishlist::where('user_id', $user_id)->count(); // Count wishlist items
-                                      //      } else {
-                                                // Handle the case when the user is not logged in
-                                             //   $wishlist = collect(); // Empty collection if not logged in
-                                           //     $wishlist_count = 0; // No wishlist count if not logged in
-                                         //   }
-                                         //   ?>
+                                            if (auth()->check()) {
+                                             $user_id = auth()->user()->id; // Get the authenticated user's ID
+                                             $wishlist = getWishlist(); // Get wishlist data
+                                               $wishlist_count = \App\Models\Whishlist::where('user_id', $user_id)->count(); // Count wishlist items
+                                                 } else {
+                                          // Handle the case when the user is not logged in
+                                             $wishlist = collect(); // Empty collection if not logged in
+                                                $wishlist_count = 0; // No wishlist count if not logged in
+                                              }
+                                           
+                                            ?>
 
 
                                             <span class="product-count" id="wishlist-count"
-                                                style="margin-left: 5px">{{-- {{ $wishlist_count }} --}}</span>
+                                                style="margin-left: 5px">{{ $wishlist_count }} </span>
 
+                                                
                                         </p>
 
                                         <div id="wishlist-course">
 
                                             <!---ajax loaded wishlist  frontend.pages.home.partial.wishlist  -->
-
 
 
                                         </div>

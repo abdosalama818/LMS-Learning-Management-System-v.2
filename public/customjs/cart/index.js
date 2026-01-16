@@ -74,15 +74,17 @@ function getCart(){
         type: 'GET',
         data: {
 
-            _token: $('meta[name="csrf-token"]').attr('content')
 
 
         },
         success: function (response) {
 
              if (response.status === 'success') {
+                console.log(response);
                 // #wishlist-course ডিভে HTML আপডেট করা
                 $('#cart').html(response.html);
+            }else{
+                console.log(response);
             }
 
 
@@ -109,7 +111,9 @@ function getCart(){
 $(document).ready(function () {
 
     // Call the function to get the cart data
-    fetchCart();
+
+
+     fetchCart();
 
     function fetchCart() {
 
@@ -141,11 +145,12 @@ $(document).ready(function () {
             }
         });
 
-    }
+    } 
 
     $(document).on('click', '.remove-course-btn', function() {
 
         var id = $(this).data('id');
+        var course_id = $(this).data('course-id');
         var url = '/remove/cart'; // Define the remove route
 
         $.ajax({
@@ -154,7 +159,8 @@ $(document).ready(function () {
             type: 'POST',
             data: {
                 _token: $('meta[name="csrf-token"]').attr('content'),
-                id: id
+                id: id,
+                course_id: course_id,
             },
 
             success: function(response) {

@@ -27,35 +27,38 @@
 
                     <div style="display: flex; align-items:center; justify-content:space-between">
                         <h5 class="mb-4">Update Coupon</h5>
-                        <a href="{{route('instructor.coupon.index')}}" class="btn btn-primary">Back</a>
+                        <a href="{{ route('instructor.coupon.index') }}" class="btn btn-primary">Back</a>
 
                     </div>
 
-                    <form class="row g-3" method="post" action="{{route('instructor.coupon.update', $coupon->id)}}">
+                    <form class="row g-3" method="post" action="{{ route('instructor.coupon.update', $coupon->id) }}">
                         @csrf
                         @method('PUT')
 
                         @if ($errors->any())
-    <ul class="text-red-500">
-        @foreach ($errors->all() as $error)
-            <li>{{ $error }}</li>
-        @endforeach
-    </ul>
-@endif
+                            <ul class="text-red-500">
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        @endif
 
 
 
                         <div class="col-md-6">
                             <label for="coupon_name" class="form-label">Coupon Name</label>
-                            <input type="text" class="form-control" name="coupon_name" id="coupon_name" placeholder="Enter coupon name" value='{{$coupon->coupon_name}}'>
+                            <input type="text" class="form-control" name="coupon_name" id="coupon_name"
+                                placeholder="Enter coupon name" value='{{ $coupon->coupon_name }}'>
                         </div>
                         <div class="col-md-6">
                             <label for="coupon_discount" class="form-label">Coupon Discount</label>
-                            <input type="price" class="form-control" name="coupon_discount" id="coupon_discount" placeholder="Enter coupon discount" value="{{$coupon->coupon_discount}}">
+                            <input type="price" class="form-control" name="coupon_discount" id="coupon_discount"
+                                placeholder="Enter coupon discount" value="{{ $coupon->coupon_discount }}">
                         </div>
                         <div class="col-md-6">
                             <label for="coupon_validity" class="form-label">Coupon Validity</label>
-                            <input type="date" class="form-control" name="coupon_validity" id="coupon_validity" value="{{$coupon->coupon_validity}}">
+                            <input type="date" class="form-control" name="coupon_validity" id="coupon_validity"
+                                value="{{ $coupon->coupon_validity }}">
                         </div>
 
                         <div class="col-md-6">
@@ -64,10 +67,10 @@
 
 
 
-                                <option value='1' {{ $coupon->status == '1'  ? 'selected' : '' }}  >Yes</option>
+                                <option value='1' {{ $coupon->status == '1' ? 'selected' : '' }}>Yes</option>
 
 
-                                <option value="0" {{ $coupon->status == '0'  ? 'selected' : '' }} >No</option>
+                                <option value="0" {{ $coupon->status == '0' ? 'selected' : '' }}>No</option>
 
 
                             </select>
@@ -92,5 +95,3 @@
 
     </div>
 @endsection
-
-

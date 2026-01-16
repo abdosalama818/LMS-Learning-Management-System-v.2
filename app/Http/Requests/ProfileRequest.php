@@ -20,44 +20,69 @@ class ProfileRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
-    public function rules(): array
-    {
-        // حدد الـ guard المستخدم
-        if ($this->is('admin/*')) {
-            $userId = Auth::guard('admin')->id(); // ID الحالي للـ admin
+  public function rules(): array
+{
+    /* ================= ADMIN ================= */
+    if ($this->is('admin/*') && Auth::guard('admin')->check()) {
 
-            return [
-                'name' => 'required|string|max:255',
-                'email' => 'required|email|max:255|unique:admins,email,' . $userId,
-                'phone' => 'nullable|string|max:255|unique:admins,phone,' . $userId,
-                'address' => 'nullable|string',
-                'city' => 'nullable|string',
-                'state' => 'nullable|string',
-                'zip' => 'nullable|string',
-                'country' => 'nullable|string',
-                'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            ];
-        } else {
-            $userId = Auth::guard('instructor')->id(); // ID الحالي للـ instructor
+        $userId = Auth::guard('admin')->id();
 
-            return [
-                'first_name' => 'nullable|string|max:255',
-                'last_name' => 'nullable|string|max:255',
-                'name' => 'required|string|max:255',
-                'email' => 'required|email|max:255|unique:instructors,email,' . $userId,
-                'phone' => 'nullable|string|max:255|unique:instructors,phone,' . $userId,
-                'address' => 'nullable|string',
-                'city' => 'nullable|string',
-                'state' => 'nullable|string',
-                'zip' => 'nullable|string',
-                'country' => 'nullable|string',
-                'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-                'bio' => 'nullable|string',
-                'experience' => 'nullable|string',
-                'gender' => 'nullable|in:male,female',
-            ];
-        }
+        return [
+            'name'    => 'required|string|max:255',
+            'email'   => 'required|email|max:255|unique:admins,email,' . $userId,
+            'phone'   => 'nullable|string|max:255|unique:admins,phone,' . $userId,
+            'address' => 'nullable|string',
+            'city'    => 'nullable|string',
+            'state'   => 'nullable|string',
+            'zip'     => 'nullable|string',
+            'country' => 'nullable|string',
+            'photo'   => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ];
     }
+
+    /* ================= USER (WEB) ================= */
+    if (Auth::guard('web')->check()) {
+
+        $userId = Auth::guard('web')->id();
+
+        return [
+            'first_name' => 'required|string|max:255',
+            'last_name'  => 'required|string|max:255',
+            'name'       => 'required|string|max:255',
+            'email'      => 'required|email|max:255|unique:users,email,' . $userId,
+            'phone'      => 'nullable|string|max:255|unique:users,phone,' . $userId,
+            'address'    => 'nullable|string',
+            'bio'        => 'nullable|string',
+            'photo'      => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ];
+    }
+
+    /* ================= INSTRUCTOR ================= */
+    if (Auth::guard('instructor')->check()) {
+
+        $userId = Auth::guard('instructor')->id();
+
+        return [
+            'first_name' => 'nullable|string|max:255',
+            'last_name'  => 'nullable|string|max:255',
+            'name'       => 'required|string|max:255',
+            'email'      => 'required|email|max:255|unique:instructors,email,' . $userId,
+            'phone'      => 'nullable|string|max:255|unique:instructors,phone,' . $userId,
+            'address'    => 'nullable|string',
+            'city'       => 'nullable|string',
+            'state'      => 'nullable|string',
+            'zip'        => 'nullable|string',
+            'country'    => 'nullable|string',
+            'photo'      => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'bio'        => 'nullable|string',
+            'experience' => 'nullable|string',
+            'gender'     => 'nullable|in:male,female',
+        ];
+    }
+
+    return [];
+}
+
 
     /**
      * Optional: custom messages

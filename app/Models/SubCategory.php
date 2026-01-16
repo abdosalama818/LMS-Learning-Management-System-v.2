@@ -35,11 +35,14 @@ class SubCategory extends Model
 
 
 
-        const CACHE_KEY = 'categories_with_subs';
 
     public static function booted()
     {
-        static::saved(fn () => Cache::forget(self::CACHE_KEY));
-        static::deleted(fn () => Cache::forget(self::CACHE_KEY));
+       $clearCache = function () {
+        Cache::forget(Category::CACHE_KEY_SUB);
+    };
+
+    static::saved($clearCache);
+    static::deleted($clearCache);
     }
 }

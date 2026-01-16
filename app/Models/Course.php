@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 
 class Course extends Model
@@ -13,9 +14,27 @@ class Course extends Model
 
    protected static function booted()
 {
-    static::saving(function ($course) {
+
+     static::addGlobalScope('active', function ($query) {
+
+        if (request()->is('/*') && auth('web')->check()) {
+             $query->where('status', 1);
+        }
+
+     
+    });
+
+   
+        static::saving(function ($course) {
         $course->course_name_slug = makeArabicSlug($course->course_name);
     });
+     $clearCache = function () {
+        Cache::forget(Category::CACHE_KEY_COURSES);
+    };
+
+    static::saved($clearCache);
+    static::deleted($clearCache);
+
 }
 
 
@@ -26,7 +45,9 @@ class Course extends Model
 
     public function subCategory()
     {
-        return $this->belongsTo(SubCategory::class, 'subcategory_id', 'id');
+        return $this->belongsTo(SubCategory::class, 'subcategory_id', 'id')->withDefault([
+            'name' => 'N/A'
+        ]);
     }
 
     public function instructor()
@@ -39,6 +60,23 @@ class Course extends Model
     {
         return $this->hasMany(CourseGoal::class, 'course_id', 'id');
     }
+
+
+    public function courseSections()
+    {
+        return $this->hasMany(CourseSection::class, 'course_id', 'id');
+    }
+
+
+    public function students()
+    {
+        return $this->belongsToMany(Student::class, 'course_student', 'course_id', 'student_id');
+    }
+
+
+
+
+
 
 
 }

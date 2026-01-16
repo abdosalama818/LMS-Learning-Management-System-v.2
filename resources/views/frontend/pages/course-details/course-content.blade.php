@@ -37,7 +37,7 @@
                         <i class="la la-plus"></i>
                         <i class="la la-minus"></i>
                         {{ $item->section_title }}
-                        <span class="fs-15 text-gray font-weight-medium">{{$item['lecture']->count()}} lectures</span>
+                        <span class="fs-15 text-gray font-weight-medium">{{$item['lectures']->count()}} lectures</span>
                     </button>
                 </div><!-- end card-header -->
                 <div id="collapse-{{ $index }}"
@@ -46,7 +46,7 @@
                     <div class="card-body">
                         <ul class="generic-list-item">
 
-                            @foreach ($item['lecture'] as $lecture)
+                            @foreach ($item['lectures'] as $lecture)
                                 <li>
                                     <a href="#"
                                         class="d-flex align-items-center justify-content-between text-color"

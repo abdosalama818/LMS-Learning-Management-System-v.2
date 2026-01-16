@@ -203,8 +203,8 @@
 
                                     @forelse($cart as  $item)
                                         <div class="media media-card border-bottom border-bottom-gray pb-3 mb-3">
-                                            <a href="course-details.html" class="media-img">
-                                                <img src="{{ asset($item->course->course_image) }}" alt="Cart image">
+                                            <a href="{{ route('course-details', $item->course->course_name_slug) }}" class="media-img">
+                                                <img src="{{  asset("uploads/" . $item->course->course_image) }}" alt="Cart image">
                                             </a>
 
                                             <input type="hidden" name="course_id[]" value="{{ $item->course->id }}" />
@@ -237,6 +237,32 @@
                             <div class="card-body">
                                 <h3 class="card-title fs-22 pb-3">Order Summary</h3>
                                 <div class="divider"><span></span></div>
+
+
+                                
+  <div class="d-flex flex-wrap align-items-center justify-content-between pt-4">
+                    <form id="couponForm" method="POST" action="{{ route('checkoutCoupon') }}">
+                        @csrf
+                        @foreach ($cart as $item)
+                            <input type="hidden" name="course_id[]" value="{{ $item->course->id }}">
+                            <input type="hidden" name="instructor_id[]" value="{{ $item->course->instructor->id }}">
+                        @endforeach
+
+                        @if (!session()->get('coupon'))
+                            <div class="input-group mb-2">
+                                <input class="form-control form--control pl-3" type="text" name="coupon"
+                                    id="couponInput" placeholder="Enter Coupon Code">
+                                <div class="input-group-append">
+                                    <button type="submit" id="applyCouponBtn" class="btn theme-btn">
+                                        Apply Code
+                                    </button>
+                                </div>
+                            </div>
+                        @endif
+                    </form>
+                    <a href="#" class="btn theme-btn mb-2 sr-only">Update Cart</a>
+                </div>
+
                                 <ul class="generic-list-item generic-list-item-flash fs-15">
                                     <li class="d-flex align-items-center justify-content-between font-weight-semi-bold">
                                         <span class="text-black">Original price:</span>

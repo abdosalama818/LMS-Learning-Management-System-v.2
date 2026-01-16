@@ -4,8 +4,8 @@
         <div class="media media-card">
             <div class="instructor-img">
                 <a href="teacher-detail.html" class="media-img d-block">
-                    <img class="lazy" src="{{ $course['user']['photo'] }}"
-                        data-src="{{ $course['user']['photo'] }}" alt="Avatar image">
+                    <img class="lazy" src="{{ asset('uploads/' . $course['instructor']['photo']) }}"
+                        data-src="{{ asset('uploads/' . $course['instructor']['photo']) }}" alt="Avatar image">
                 </a>
                 <ul class="generic-list-item pt-3">
                     <li><i class="la la-star mr-2 text-color-3"></i> 4.6 Instructor Rating</li>
@@ -16,10 +16,10 @@
                 </ul>
             </div><!-- end instructor-img -->
             <div class="media-body">
-                <h5><a href="#">{{ $course['user']['name'] }}</a></h5>
+                <h5><a href="#">{{ $course['instructor']['name'] }}</a></h5>
 
                 <div class="bio-collapsible">
-                    {!! $course['user']['bio'] !!}
+                    {!! $course['instructor']['bio'] !!}
 
                 </div>
 

@@ -68,7 +68,7 @@
                                 <h6>Instructor</h6>
 
                                 <span class="">
-                                    {{$course->user->name}}
+                                    {{$course->instructor->name}}
                                 </span>
                             </li>
 
@@ -113,17 +113,38 @@
                             <li class="list-group-item  align-items-center">
                                 <h6> Intro Video</h6>
 
+@if(!empty($course->video_url))
 
-                                @if(!empty($course->video))
-                                <video width="100%" controls>
-                                    <source src="{{ asset($course->video) }}" type="video/mp4">
-                                    <source src="{{ asset($course->video) }}" type="video/webm">
-                                    <source src="{{ asset($course->video) }}" type="video/ogg">
-                                    Your browser does not support the video tag.
-                                </video>
-                            @else
-                                <p>No video available</p>
-                            @endif
+    @php
+        function youtubeEmbed($url) {
+            preg_match(
+                '%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})%i',
+                $url,
+                $matches
+            );
+            return $matches[1] ?? null;
+        }
+
+        $videoId = youtubeEmbed($course->video_url);
+    @endphp
+
+    @if($videoId)
+        <iframe
+            width="100%"
+            height="400"
+            src="https://www.youtube.com/embed/{{ $videoId }}"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen>
+        </iframe>
+    @else
+        <p>Invalid YouTube URL</p>
+    @endif
+
+@else
+    <p>No video available</p>
+@endif
+
 
                             </li>
                             <li class="list-group-item d-flex justify-content-between align-items-center">

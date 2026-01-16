@@ -30,7 +30,7 @@ class FortifyServiceProvider extends ServiceProvider
         } elseif ($request->is('instructor/*')) {
             Config::set('fortify.prefix', 'instructor');
         } else {
-            Config::set('fortify.prefix', 'web');
+            Config::set('fortify.prefix', '');
         }
     }
 
@@ -98,18 +98,22 @@ class FortifyServiceProvider extends ServiceProvider
             return Limit::perMinute(5)->by($request->session()->get('login.id'));
         });
 
-        if(request()->is('admin/*')){
-            Fortify::loginView(function () {
-                return view('backend.admin.login.index');
-            });
-        }
+       Fortify::loginView(function (Request $request) {
 
-        if(request()->is('instructor/*')){
-            Fortify::loginView(function () {
-                return view('backend.instructor.login.index');
-            });
-        }
+    if ($request->is('admin/*')) {
+        return view('backend.admin.login.index');
+    }
 
+    if ($request->is('instructor/*')) {
+        return view('backend.instructor.login.index');
+    }
+
+    return view('auth.login'); // web
+});
+
+Fortify::registerView(function (Request $request) { 
+    return view('auth.register');
+});
         
     }
 }

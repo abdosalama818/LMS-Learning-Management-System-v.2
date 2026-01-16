@@ -39,8 +39,7 @@
                             @csrf
                             <div class="d-flex flex-wrap align-items-center pb-4">
 
-                                 <a href="{{route('auth.google')}}" class="btn theme-btn flex-grow-1 mx-2 mb-2"><i class="la la-google mr-2"></i>Google</a>
-
+                                 <a href=" {{route('auth.google')}} " class="btn theme-btn flex-grow-1 mx-2 mb-2"><i class="la la-google mr-2"></i>Google</a>
 
                             </div>
                             <div class="text-center pt-3 pb-4">

@@ -29,7 +29,7 @@
                 <div class="card radius-10">
                     <div class="card-body">
                         <div class="d-flex align-items-center">
-                            <img src="{{ asset($course->course_image) }}" class="rounded-circle p-1 border" width="90"
+                            <img src="{{ asset("uploads/" . $course->course_image) }}" class="rounded-circle p-1 border" width="90"
                                 height="90" alt="...">
                             <div class="flex-grow-1 ms-3">
                                 <h6 class="mt-0">{{ $course->course_name }}</h6>
@@ -97,7 +97,7 @@
                             <hr>
 
                             <div class="mt-3 collapse show" id="demo{{$data->id}}">
-                                @foreach ($data['lecture'] as $lecture)
+                                @foreach ($data['lectures'] as $lecture)
                                     <div style="display: flex; align-items:center; justify-content:space-between;">
                                         <div style="display: flex; gap: 10px">
                                             <span>

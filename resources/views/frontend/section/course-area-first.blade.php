@@ -1,9 +1,10 @@
 <?php
-$categories = getCategories();
+
+$categories = getCourseCategories()
 ?>
 
-
 <section class="course-area pb-120px">
+
     <div class="container">
         <div class="section-heading text-center">
             <h5 class="ribbon ribbon-lg mb-2">Choose your desired courses</h5>
@@ -27,22 +28,22 @@ $categories = getCategories();
         <div class="container">
             <div class="tab-content" id="myTabContent">
 
-          {{--       @foreach ($course_category as $index => $data)
+              @foreach ($course_category as $index => $data)
                     <div class="tab-pane fade {{ $index == 0 ? 'show active' : '' }}" id="{{ $data->slug }}"
                         role="tabpanel" aria-labelledby="{{ $data->slug }}-tab">
                         <div class="row">
 
-                            @foreach ($data['course'] as $course)
+                            @foreach ($data['courses'] as $course)
                                 <div class="col-lg-4 responsive-column-half">
                                     <div class="card card-item card-preview"
                                         data-tooltip-content="#{{ $course->course_name_slug }}">
                                         <div class="card-image">
-                                            <a href="{{ route('course-details', $course->course_name_slug) }}"
+                                            <a href=" {{ route('course-details', $course->course_name_slug) }} "
                                                 class="d-block">
 
                                                 <img class="card-img-top lazy" width="240" height="240"
                                                     src="{{ asset("uploads/" . $course->course_image) }}"
-                                                    data-src="{{ asset($course->course_image) }}" alt="Card image cap">
+                                                    data-src="{{ asset("uploads/" . $course->course_image) }}" alt="Card image cap">
 
                                             </a>
                                             <div class="course-badge-labels">
@@ -69,13 +70,13 @@ $categories = getCategories();
 
                                             <h5 class="card-title">
                                                 <a href="{{ route('course-details', $course->course_name_slug) }}">
-                                                    {{ \Illuminate\Support\Str::limit($course->course_name, 50) }}
+                                                    {{ \Illuminate\Support\Str::limit($course->course_name, 50) }} cccccc
                                                 </a>
                                             </h5>
 
                                             <p class="card-text">
                                                 <a href="#">
-                                                    {{ $course['user']['name'] }}
+                                                    {{ $course['instructor']['name'] }}
                                                 </a>
                                             </p>
                                             <div class="rating-wrap d-flex align-items-center py-2">
@@ -93,7 +94,7 @@ $categories = getCategories();
 
                                                 <p class="card-price text-black font-weight-bold">
                                                     ${{ $course->discount_price }} <span
-                                                        class="before-price font-weight-medium">{{ $course->selling_price }}</span>
+                                                        class="before-price font-weight-medium">{{ $course->selling_price }} </span>
                                                 </p>
 
 
@@ -101,22 +102,22 @@ $categories = getCategories();
                                                     title="Add to Wishlist" data-course-id="{{ $course->id }}">
 
                                                     <?php
-                                                    // Check if the user is authenticated
+                                                   // Check if the user is authenticated
                                                     if (auth()->check()) {
                                                         $user_id = auth()->user()->id;
 
-                                                        // Check if the course is in the wishlist
-                                                        $isWishlisted = \App\Models\Wishlist::where('user_id', $user_id)->where('course_id', $course->id)->first();
+                                                       //  Check if the course is in the wishlist
+                                                        $isWishlisted = \App\Models\Whishlist::where('user_id', $user_id)->where('course_id', $course->id)->first();
                                                     } else {
                                                         $isWishlisted = null; // Default value for non-authenticated users
-                                                    }
+                                                    } 
                                                     ?>
 
-                                                    @if ($isWishlisted)
+                                                  -  @if ($isWishlisted)
                                                         <i class="la la-heart"></i>
                                                     @else
                                                         <i class="la la-heart-o"></i>
-                                                    @endif
+                                                    @endif 
 
 
 
@@ -134,7 +135,7 @@ $categories = getCategories();
 
                         </div><!-- end row -->
                     </div><!-- end tab-pane -->
-                @endforeach --}}
+                @endforeach 
 
             </div><!-- end tab-content -->
             <div class="more-btn-box mt-4 text-center">

@@ -186,7 +186,7 @@
                                                 <div class="shop-cart-btn">
                                                     <div class="avatar-xs">
                                                         <img class="rounded-full img-fluid"
-                                                            src="{{ auth()->user()->photo ? asset(auth()->user()->photo) : asset('frontend/images/small-avatar-1.jpg')}}" alt="Avatar image">
+                                                            src="{{ auth()->user()->photo ? asset('uploads/' . auth()->user()->photo) : asset('frontend/images/small-avatar-1.jpg')}}" alt="Avatar image">
                                                     </div>
                                                     <span class="dot-status bg-1"></span>
                                                 </div>
@@ -196,7 +196,7 @@
                                                         <a href="teacher-detail.html"
                                                             class="avatar-sm flex-shrink-0 d-block">
                                                             <img class="rounded-full img-fluid"
-                                                                src="{{auth()->user()->photo ? asset(auth()->user()->photo) : asset('frontend/images/small-avatar-1.jpg')}}"
+                                                                src="{{auth()->user()->photo ? asset( 'uploads/' . auth()->user()->photo) : asset('frontend/images/small-avatar-1.jpg')}}"
                                                                 alt="Avatar image">
                                                         </a>
                                                         <div class="ml-2">

@@ -43,4 +43,9 @@ class User extends Authenticatable implements MustVerifyEmail
             'password' => 'hashed',
         ];
     }
+
+    public function whisllists()
+    {
+        return $this->hasMany(Whishlist::class);
+    }
 }

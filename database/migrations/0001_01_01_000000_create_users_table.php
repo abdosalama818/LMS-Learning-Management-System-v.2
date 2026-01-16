@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('last_name')->nullable();
             $table->string('name')->nullable();
             $table->string('photo')->nullable();
+            $table->number('phone')->nullable();
+            $table->longText('address')->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
@@ -25,7 +27,7 @@ return new class extends Migration
             $table->integer('day')->nullable();
             $table->string('month')->nullable();
             $table->integer('year')->nullable();
-            $table->string('city')->nullable();
+          
             $table->string('country')->nullable();
             $table->longText('experience')->nullable();
             $table->enum('gender', ['male', 'female'])->default('male');

@@ -2,8 +2,8 @@
     <div class="card-body">
         <div class="preview-course-video">
             <a href="javascript:void(0)" data-toggle="modal" data-target="#previewModal">
-                <img src="{{ asset($course->course_image) }}"
-                    data-src="{{ asset($course->course_image) }}" alt="course-img"
+                <img src="{{ asset('uploads/' . $course->course_image) }}"
+                    data-src="{{ asset('uploads/' . $course->course_image) }}" alt="course-img"
                     class="w-100 rounded lazy">
                     
                 <div class="preview-course-video-content">
@@ -46,7 +46,7 @@
                 <span class="text-color-3">4 days</span> left at this price!
             </p>
             <div class="buy-course-btn-box">
-                <button type="button" class="btn theme-btn w-100 mb-2"><i
+                <button type="button" class="btn theme-btn w-100 mb-2 add-to-cart-btn" data-course-id="{{ $course->id }}"><i
                         class="la la-shopping-cart fs-18 mr-1"></i> Add to cart</button>
                 <button type="button" class="btn theme-btn w-100 theme-btn-white mb-2"><i
                         class="la la-shopping-bag mr-1"></i> Buy this course</button>

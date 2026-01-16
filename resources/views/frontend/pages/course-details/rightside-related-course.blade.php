@@ -10,8 +10,8 @@
         @foreach($related_course as $course)
         <div class="media media-card border-bottom border-bottom-gray pb-4 mb-4">
             <a href="course-details.html" class="media-img">
-                <img class="card-img-top lazy" src="{{ asset($course->course_image) }}"
-                data-src="{{ asset($course->course_image) }}" alt="Card image cap">
+                <img class="card-img-top lazy" src="{{ asset('uploads/' . $course->course_image) }}"
+                data-src="{{ asset('uploads/' . $course->course_image) }}" alt="Card image cap">
             </a>
             <div class="media-body">
                 <h5 class="fs-15"><a href="course-details.html">The Complete JavaScript

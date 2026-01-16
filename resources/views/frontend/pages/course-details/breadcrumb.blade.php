@@ -5,7 +5,7 @@
                 <ul class="generic-list-item generic-list-item-arrow d-flex flex-wrap align-items-center">
                     <li><a href="index.html">Home</a></li>
                     <li><a href="#">{{ $course['category']['name'] }}</a></li>
-                    <li><a href="#">{{ $course['subcategory']['name'] }}</a></li>
+                    <li><a href="#">{{ $course['subCategory']['name'] ?? 'No Subcategory' }}</a></li>
                 </ul>
 
                 <div class="section-heading">
@@ -33,7 +33,7 @@
                 </div><!-- end d-flex -->
 
                 <p class="pt-2 pb-1">Created by <a href="teacher-detail.html"
-                    class="text-color hover-underline">{{ $course['user']['name'] }}</a></p>
+                    class="text-color hover-underline">{{ $course['instructor']['name'] }}</a></p>
 
                 <div class="d-flex flex-wrap align-items-center">
                     <p class="pr-3 d-flex align-items-center">
@@ -56,7 +56,7 @@
                 <div class="bread-btn-box pt-3">
                     <button class="btn theme-btn theme-btn-sm theme-btn-transparent lh-28 mr-2 mb-2">
                         <i class="la la-heart-o mr-1"></i>
-                        <span class="swapping-btn" data-text-swap="Wishlisted"
+                        <span class="swapping-btn wishlist-icon" data-text-swap="Wishlisted" data-course-id="{{ $course->id }}
                             data-text-original="Wishlist">Wishlist</span>
                     </button>
                     <button class="btn theme-btn theme-btn-sm theme-btn-transparent lh-28 mr-2 mb-2"

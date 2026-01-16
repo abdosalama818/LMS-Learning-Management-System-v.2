@@ -11,44 +11,46 @@ class ProfileRepository implements ProfileInterface
 {
     public function resetPassword($request)
     {
-        if(Auth::guard('admin')->check()){
-            $user = Auth::guard('admin')->user();
-            $user->update([
-                'password' => Hash::make($request->new_password),
-            ]);
-        }elseif(Auth::guard('instructor')->check()){
-            $user = Auth::guard('instructor')->user();
-            $user->update([
-                'password' => Hash::make($request->new_password),
-            ]);
-        }    
+        $guard = currentGuard();
+        $user  = Auth::guard($guard)->user();
+
+        if (! $user) {
+            abort(401, 'Unauthenticated');
+        }
+
+        // لو كلمة المرور الحالية غلط
+        if (! Hash::check($request->current_password, $user->password)) {
+            abort(422, 'Current password is incorrect');
+        }
+
+        $user->update([
+            'password' => Hash::make($request->new_password),
+        ]);
+
         return $user;
     }
 
+
     public function updateProfile($request)
     {
+        $guard = currentGuard(); // Helper function
+        $user  = Auth::guard($guard)->user();
 
-        $user = Auth::guard('instructor')->user();
-        if ($user) {
-            $path = $user->photo;
-            if ($request->hasFile('photo')) {
-                $path = Storage::putFile('instructor', $request->photo);
-            }
+        if (! $user) {
+            abort(401, 'Unauthenticated');
+        }
 
-            $validated = $request->validated();
-            $validated['photo'] = $path;
-            $user->update($validated);
-        }elseif($user = Auth::guard('admin')->user()){
-            $path = $user->photo;
-            if($request->hasFile('photo')){
-                $path = Storage::putFile('admin', $request->photo);  
-            }
+        // مسار الصورة حسب guard
+        $path = $user->photo;
+        if ($request->hasFile('photo')) {
+            $path = Storage::putFile($guard, $request->photo);
+        }
 
-            $validated = $request->validated();
-            $validated['photo'] = $path;
-            $user->update($validated);
+        $validated = $request->validated();
+        $validated['photo'] = $path;
 
-        } 
+        $user->update($validated);
+
         return $user;
     }
 }

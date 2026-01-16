@@ -56,30 +56,30 @@
         </li>
 
 
-        <li class="{{-- {{ setSidebar(['admin.course*']) }} --}}">
+        <li class=" {{ setSidebar(['admin.course*']) }} ">
             <a href="javascript:;" class="has-arrow">
                 <div class="parent-icon"><i class="bx bx-category"></i>
                 </div>
                 <div class="menu-title">Manage Course</div>
             </a>
             <ul>
-                <li class="{{-- {{ setSidebar(['admin.course*']) }} --}}">
-                    <a href="{{-- {{route('admin.course.index')}} --}}"><i class='bx bx-radio-circle'></i>All Courses</a>
+                <li class=" {{ setSidebar(['admin.course*']) }} ">
+                    <a href=" {{route('admin.course.index')}} "><i class='bx bx-radio-circle'></i>All Courses</a>
                 </li>
 
 
             </ul>
         </li>
 
-         <li class="{{-- {{ setSidebar(['admin.order*']) }} --}}">
+         <li class="{{ setSidebar(['admin.order*']) }} ">
             <a href="javascript:;" class="has-arrow">
                 <div class="parent-icon"><i class="bx bx-category"></i>
                 </div>
                 <div class="menu-title">Manage Order</div>
             </a>
             <ul>
-                <li class="{{-- {{ setSidebar(['admin.order*']) }} --}}">
-                    <a href="{{-- {{route('admin.order.index')}} --}}"><i class='bx bx-radio-circle'></i>All Orders</a>
+                <li class="{{ setSidebar(['admin.order*']) }} ">
+                    <a href="{{route('admin.order.index')}} "><i class='bx bx-radio-circle'></i>All Orders</a>
                 </li>
 
 
@@ -109,8 +109,8 @@
                     <a href=" {{--  {{route('admin.partner.index')}} --}} "><i class='bx bx-radio-circle'></i>Manage Partner</a>
                 </li>
 
-                 <li class="{{-- {{ setSidebar(['admin.site-setting*']) }} --}}">
-                    <a href=" {{-- {{route('admin.site-setting.index')}} --}} "><i class='bx bx-radio-circle'></i>Site Settings</a>
+                 <li class=" {{ setSidebar(['admin.site-setting*']) }}">
+                    <a href="  {{route('admin.site-setting.index')}} "><i class='bx bx-radio-circle'></i>Site Settings</a>
                 </li>
 
 
@@ -128,15 +128,15 @@
             </a>
             <ul>
 
-                <li> <a href="{{-- {{route('admin.mailSetting')}} --}}"><i class='bx bx-radio-circle'></i>Mail Setting</a>
+                <li> <a href=" {{-- {{route('admin.mailSetting')}} --}} "><i class='bx bx-radio-circle'></i>Mail Setting</a>
                 </li>
 
                 <li>
-                    <a href="{{-- {{route('admin.stripeSetting')}} --}}"><i class='bx bx-radio-circle'></i>Stripe Setting</a>
+                    <a href= {{route('admin.stripSetting')}}><i class='bx bx-radio-circle'></i>Stripe Setting</a>
                 </li>
 
                 <li>
-                    <a href="{{-- {{route('admin.googleSetting ')}} --}}"><i class='bx bx-radio-circle'></i>Google Setting</a>
+                    <a href={{route('admin.googleSetting')}}><i class='bx bx-radio-circle'></i>Google Setting</a>
                 </li>
 
 

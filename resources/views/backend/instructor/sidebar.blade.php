@@ -37,7 +37,23 @@
 
             </ul>
         </li>
-{{-- 
+
+
+          <li class="{{ setSidebar(['instructor.student*']) }}">
+            <a href="javascript:;" class="has-arrow">
+                <div class="parent-icon"><i class="bx bx-category"></i>
+                </div>
+                <div class="menu-title">Manage student</div>
+            </a>
+            <ul>
+                <li class="{{ setSidebar(['instructor.student*']) }}">
+                    <a href=" {{route('instructor.student.index')}} "><i class='bx bx-radio-circle'></i>All Student</a>
+                </li>
+
+            </ul>
+        </li>
+
+
          <li class="{{ setSidebar(['instructor.coupon*']) }}">
             <a href="javascript:;" class="has-arrow">
                 <div class="parent-icon"><i class="bx bx-category"></i>
@@ -50,7 +66,7 @@
                 </li>
 
             </ul>
-        </li> --}}
+        </li>
 
         @endif
 

@@ -28,7 +28,9 @@
                 </div>
                 <div class="pl-4">
                     <p class="card-text fs-18">Enrolled Courses</p>
-                    <h5 class="card-title pt-2 fs-26">5</h5>
+<h5 class="card-title pt-2 fs-26">
+    {{ App\Models\Student::where('user_id', Auth::user()->id)->first()?->courses()->count() ?? 0 }}
+</h5>
                 </div>
             </div><!-- end card-body -->
         </div><!-- end card -->
@@ -79,7 +81,9 @@
                 </div>
                 <div class="pl-4">
                     <p class="card-text fs-18">Wishlist Courses</p>
-                    <h5 class="card-title pt-2 fs-26">10</h5>
+                  <h5 class="card-title pt-2 fs-26">
+    {{ \App\Models\Whishlist::where('user_id', auth()->id())->count() }}
+</h5>
                 </div>
             </div><!-- end card-body -->
         </div><!-- end card -->

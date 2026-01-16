@@ -1,7 +1,15 @@
 <?php
 
 use App\Models\Category;
+use App\Models\Whishlist;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Str;
+
+
+
+
 
 
 if (!function_exists('setSidebar')) {
@@ -21,7 +29,7 @@ if (!function_exists('getCategories')) {
     function getCategories()
     {
       
-      return Cache::remember(Category::CACHE_KEY,   now()->addMinutes(1) , function () {
+      return Cache::remember(Category::CACHE_KEY_SUB,   now()->addMinutes(1) , function () {
           return Category::with('subcategories')->get();
 
       });
@@ -32,18 +40,7 @@ if (!function_exists('getCategories')) {
 
 
 
-if (!function_exists('getWishlist')) {
-    function getWishlist()
-    {
-        return session()->get('wishlist', []);
-    }
-}
-if (!function_exists('getCourseCategories')) {
-    function getCourseCategories()
-    {
-        return session()->get('getCourseCategories', []);
-    }
-}
+
 
 
 if(!function_exists('isApprovedUser')){
@@ -69,4 +66,51 @@ function makeArabicSlug($string) {
 
 }
 
- 
+
+if(!function_exists('getCourseCategories')){
+    function getCourseCategories()
+    {
+       $categories = Cache::remember(Category::CACHE_KEY_COURSES, 3600, function () {
+          return Category::with(['courses' => function ($query) {
+              $query->inRandomOrder()->limit(6);
+          },'courses.instructor'])->get();
+        });
+        return $categories;
+    }
+}
+
+ if (! function_exists('currentGuard')) {
+    function currentGuard(): string
+    {
+        if (Auth::guard('admin')->check()) {
+            return 'admin';
+        }
+
+        if (Auth::guard('instructor')->check()) {
+            return 'instructor';
+        }
+
+        return 'web';
+    }
+}
+
+if(! function_exists('getWishlist')){
+    function getWishlist(){
+        $user_id = auth('web')->user()->id;
+        return Whishlist::where('user_id', $user_id)->get();   
+    }
+}
+
+if(! function_exists('youtubeEmbed')){
+
+function youtubeEmbed($url)
+{
+    preg_match(
+        '%(?:youtube\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})%i',
+        $url,
+        $matches
+    );
+
+    return $matches[1] ?? null;
+}
+}

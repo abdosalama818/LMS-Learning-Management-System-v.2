@@ -20,7 +20,7 @@
                                 <th scope="row">
                                     <div class="media media-card">
                                         <a href="course-details.html" class="media-img mr-0">
-                                            <img src="{{ asset($item->course->course_image) }}" alt="Cart image">
+                                            <img src="{{ asset('uploads/' . $item->course->course_image) }}" alt="Cart image">
                                         </a>
                                     </div>
                                 </th>
@@ -28,7 +28,7 @@
                                     <a href="course-details.html"
                                         class="text-black font-weight-semi-bold">{{ $item->course->course_name }}</a>
                                     <p class="fs-14 text-gray lh-20">By <a href="teacher-detail.html"
-                                            class="text-color hover-underline">{{ $item->course->user->name }}</a>,{{ $item->course->course_title }}
+                                            class="text-color hover-underline">{{ $item->course->instructor->name }}</a>,{{ $item->course->course_title }}
                                         &amp; More!</p>
                                 </td>
                                 <td>
@@ -42,7 +42,7 @@
 
                                     <button type="button"
                                         class="remove-course-btn icon-element icon-element-xs shadow-sm border-0"
-                                        data-id="{{ $item->id }}" data-toggle="tooltip" data-placement="top"
+                                        data-id="{{ $item->id }}" data-course-id="{{ $item->course->id }}" data-toggle="tooltip" data-placement="top"
                                         title="Remove">
                                         <i class="la la-times"></i>
                                     </button>
@@ -66,7 +66,7 @@
                         @csrf
                         @foreach ($cart as $item)
                             <input type="hidden" name="course_id[]" value="{{ $item->course->id }}">
-                            <input type="hidden" name="instructor_id[]" value="{{ $item->course->user->id }}">
+                            <input type="hidden" name="instructor_id[]" value="{{ $item->course->instructor->id }}">
                         @endforeach
 
                         @if (!session()->get('coupon'))
@@ -148,7 +148,7 @@
 
 
 
-                    <a href="{{ route('checkout.index') }}" class="btn theme-btn w-100">Checkout <i
+                    <a href=" {{ route('checkout.index') }}" class="btn theme-btn w-100">Checkout <i
                             class="la la-arrow-right icon ml-1"></i></a>
                 </div>
             </div>

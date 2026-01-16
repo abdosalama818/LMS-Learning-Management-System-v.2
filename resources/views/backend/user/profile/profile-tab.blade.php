@@ -18,7 +18,7 @@
             <h3 class="fs-17 font-weight-semi-bold pb-4">Edit Profile</h3>
             <div class="media media-card align-items-center">
                 <div class="media-img media-img-lg mr-4 bg-gray">
-                    <img class="mr-3" id="photoPreview"  src="{{  auth()->user()->photo ? asset(auth()->user()->photo) :  asset('frontend/images/team11.jpg')}}"   alt="avatar image">
+                    <img class="mr-3" id="photoPreview"  src="{{  auth()->user()->photo ? asset("uploads/" . auth()->user()->photo) :  asset('frontend/images/team11.jpg')}}"   alt="avatar image">
                 </div>
                 <div class="media-body">
                     <div class="file-upload-wrap file-upload-wrap-2">

@@ -34,7 +34,7 @@
                         <div style="display:flex; align-items:center; justify-content: flex-start; gap: 15px">
 
                             <div>
-                                <img src="{{asset($user_info->photo)}}" class="text-center" width="120" height='120' style="border-radius: 60px"  />
+                                <img src="{{asset("uploads/" . $user_info->photo)}}" class="text-center" width="120" height='120' style="border-radius: 60px"  />
 
                             </div>
 
@@ -109,7 +109,7 @@
                                  @foreach($payment_info['order'] as $item)
                                 <tr>
                                     <td>
-                                        <img src="{{asset($item->course->course_image)}}" width="80" height="80" style="border-radius: 5px" />
+                                        <img src="{{asset("uploads/" . $item->course->course_image)}}" width="80" height="80" style="border-radius: 5px" />
                                     </td>
 
                                     <td>{{$item->course->course_name}}</td>

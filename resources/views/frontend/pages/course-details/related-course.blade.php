@@ -3,7 +3,7 @@
         <div class="related-course-wrap">
 
             <h3 class="fs-28 font-weight-semi-bold pb-35px">More Courses by <a href="#"
-                    class="text-color hover-underline">{{ $course->user->name }}</a></h3>
+                    class="text-color hover-underline">{{ $course->instructor->name }}</a></h3>
 
             <div class="view-more-carousel-2 owl-action-styled">
 
@@ -13,8 +13,8 @@
 
                             <a href="course-details.html" class="d-block">
                                 <img class="card-img-top lazy" width="240" height="240"
-                                    src="{{ asset($course->course_image) }}"
-                                    data-src="{{ asset($course->course_image) }}" alt="Card image cap">
+                                    src="{{ asset( 'uploads/' .  $course->course_image) }}"
+                                    data-src="{{ asset('uploads/' .  $course->course_image) }}" alt="Card image cap">
                             </a>
 
                             <div class="course-badge-labels">
@@ -51,7 +51,7 @@
                             </h5>
                             <p class="card-text">
                                 <a href="#">
-                                    {{ $course['user']['name'] }}
+                                    {{ $course['instructor']['name'] }}
                                 </a>
 
                             </p>
@@ -73,8 +73,8 @@
                                         class="before-price font-weight-medium">{{ $course->selling_price }}</span>
                                 </p>
 
-                                <div class="icon-element icon-element-sm shadow-sm cursor-pointer"
-                                    title="Add to Wishlist"><i class="la la-heart-o"></i></div>
+                                <div class="icon-element icon-element-sm shadow-sm cursor-pointer wishlist-icon"
+                                   title="Add to Wishlist" data-course-id="{{ $course->id }}">><i class="la la-heart-o"></i></div>
                             </div>
                         </div><!-- end card-body -->
                     </div><!-- end card -->

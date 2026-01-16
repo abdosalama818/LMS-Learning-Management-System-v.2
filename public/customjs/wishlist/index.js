@@ -76,6 +76,7 @@ function updateWishlistCount(count) {
 
 //getwishlist
 
+
 function getWishlist(){
 
     var url = '/wishlist/all';

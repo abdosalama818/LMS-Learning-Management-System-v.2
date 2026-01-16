@@ -18,19 +18,26 @@ class Category extends Model
     {
         return $this->hasMany(Subcategory::class);
     }
-    
-    const CACHE_KEY = 'categories_with_subs';
+
+    const CACHE_KEY_SUB = 'categories_with_subs';
+    const CACHE_KEY_COURSES = 'course_category_with_courses';
+    const CACHE_KEY_ALL_CATEGORIES = 'categories';
 
     public static function booted()
     {
         static::observe(CategoryObserver::class);
-        static::saved(fn () => Cache::forget(self::CACHE_KEY));
-        static::deleted(fn () => Cache::forget(self::CACHE_KEY));
+        $clearCache = function () {
+            Cache::forget(self::CACHE_KEY_SUB);
+            Cache::forget(self::CACHE_KEY_COURSES);
+            Cache::forget(self::CACHE_KEY_ALL_CATEGORIES);
+        };
+
+        static::saved($clearCache);
+        static::deleted($clearCache);
     }
 
-
-
-
-
-
+    public function courses()
+    {
+        return $this->hasMany(Course::class, 'category_id', 'id');
+    }
 }

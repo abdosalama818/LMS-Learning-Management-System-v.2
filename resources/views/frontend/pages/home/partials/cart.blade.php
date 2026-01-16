@@ -2,21 +2,22 @@
     <li>
         <p class="shop-cart-btn d-flex align-items-center">
             <i class="la la-shopping-cart"></i>
-            <span class="product-count">{{ count($cart) }}</span>
+            <span class="product-count">{{ count($cart) }} </span>
         </p>
 
         @if($cart->count() > 0)
+
         <ul class="cart-dropdown-menu">
             @foreach($cart as $item)
                 <li class="media media-card">
-                    <a href="course-details.html" class="media-img">
-                        <img src="{{ $item->course->course_image }}" alt="{{ $item->course->course_title }}">
+                    <a href="{{ route('course-details', $item->course->course_name_slug) }} " class="media-img">
+                        <img src="{{ asset('uploads/'.$item->course->course_image) }}" alt="{{ $item->course->course_title }}">
                     </a>
                     <div class="media-body">
                         <h5>
-                            <a href="course-details.html">{{ $item->course->course_title }}</a>
+                            <a href=" {{ route('course-details', $item->course->course_name_slug) }} ">{{ $item->course->course_title }}</a>
                         </h5>
-                        <span class="d-block lh-18 py-1">{{ $item->course->user->name }}</span>
+                        <span class="d-block lh-18 py-1">{{ $item->course->instructor->name }} </span>
                         <p class="text-black font-weight-semi-bold lh-18">
                             ${{ number_format($item->course->discount_price, 2) }}
                             @if($item->course->selling_price > $item->course->discount_price)
@@ -29,13 +30,13 @@
 
             <li class="media media-card">
                 <div class="media-body fs-16">
-                    <p class="text-black font-weight-semi-bold lh-18">Total: <span class="cart-total">${{$subTotal}}</span></p>
+                    <p class="text-black font-weight-semi-bold lh-18">Total: <span class="cart-total">$ {{$subTotal}} </span></p>
                 </div>
             </li>
 
 
             <li>
-                <a href="{{ route('checkout.index') }}" class="btn theme-btn w-100">Go to checkout <i class="la la-arrow-right icon ml-1"></i></a>
+                <a href=" {{ route('checkout.index') }} " class="btn theme-btn w-100">Go to checkout <i class="la la-arrow-right icon ml-1"></i></a>
             </li>
         </ul>
         @endif

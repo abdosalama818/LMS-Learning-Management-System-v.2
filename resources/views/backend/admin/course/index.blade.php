@@ -57,13 +57,13 @@
                                     <td>{{ $index + 1 }}</td>
                                     <td>
                                         @if ($item->course_image)
-                                            <img src="{{ asset($item->course_image) }}" width="140" height="80" />
+                                            <img src="{{    asset("uploads/" . $item->course_image) }}" width="140" height="80" />
                                         @else
                                             <span>No image found</span>
                                         @endif
                                     </td>
                                     <td>{{ $item->course_name }}</td>
-                                    <td>{{ $item->user->name }}</td>
+                                    <td>{{ $item->instructor->name }}</td>
                                     <td>{{ $item->category->name }}</td>
                                     <td>
                                         @if($item->discount_price)

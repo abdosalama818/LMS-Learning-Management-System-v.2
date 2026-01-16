@@ -15,18 +15,26 @@
 <script src="{{ asset('frontend/js/animated-skills.js') }}"></script>
 <script src="{{ asset('frontend/js/jquery.MultiFile.min.js') }}"></script>
 <script src="{{ asset('frontend/js/jquery-te-1.4.0.min.js') }}"></script>
-<script src=" {{asset('frontend/js/bootstrap-select.min.js')}}  "></script>
+<script src=" {{ asset('frontend/js/bootstrap-select.min.js') }}  "></script>
 <script src="{{ asset('frontend/js/main.js') }}"></script>
 
 
- <!----Sweet Alert---->
+<!----Sweet Alert---->
 
- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.all.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.all.min.js"></script>
 
- <script src="https://cdn.jsdelivr.net/npm/laravel-echo@1.11.3/dist/echo.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/laravel-echo@1.11.3/dist/echo.js"></script>
 
-
- <script>
+<script>
+    document.addEventListener('contextmenu', e => e.preventDefault());
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'F12' ||
+            (e.ctrlKey && e.shiftKey && e.key === 'I')) {
+            e.preventDefault();
+        }
+    });
+</script>
+<script>
     @if (session('success'))
         Swal.fire({
             toast: true,
@@ -51,7 +59,6 @@
 </script>
 
 <script src="{{ asset('customjs/wishlist/index.js') }}"></script>
-<script src="{{asset('customjs/cart/index.js')}}"></script>
+<script src="{{ asset('customjs/cart/index.js') }}"></script>
 
 @stack('scripts')
-
