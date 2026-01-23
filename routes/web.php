@@ -2,6 +2,10 @@
 <?php
 
 use \App\Http\Controllers\Dashboard\Instructor\Course\CourseSectionController;
+use \App\Http\Controllers\Dashboard\Instructor\QuestionController;
+use \App\Http\Controllers\Dashboard\Instructor\QuizController;
+use \App\Http\Controllers\Dashboard\Instructor\ZoomMeetingController;
+use \App\Http\Controllers\Dashboard\Student\StudentQuizController;
 use App\Http\Controllers\Dashboard\Admin\AdminController;
 use App\Http\Controllers\Dashboard\Admin\AdminInstractor;
 use App\Http\Controllers\Dashboard\Admin\CartController;
@@ -28,6 +32,9 @@ use App\Models\Course;
 use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Validation\Rules\In;
+
+
+
 
 
 
@@ -72,11 +79,8 @@ Route::group([
     Route::resource('course', CourseAdminController::class);
     Route::post('/course-status', [CourseAdminController::class, 'courseStatus'])->name('course.status');
     Route::resource('order', OrderAdminController::class);
-   Route::get('/google-setting', [SettingController::class, 'googleSetting'])->name('googleSetting');
+    Route::get('/google-setting', [SettingController::class, 'googleSetting'])->name('googleSetting');
     Route::post('/google-settings/update', [SettingController::class, 'updateGoogleSettings'])->name('google.settings.update');
-
-
-
 });
 
 
@@ -101,10 +105,19 @@ Route::group([
     Route::resource("lecture", CourseLectureController::class);
     Route::resource("coupon", CouponController::class);
     Route::resource('student', StudentController::class);
+    Route::resource('quiz', QuizController::class);
+    Route::resource('zoom-meeting', ZoomMeetingController::class)->only(['index', 'create', 'store', 'edit', 'update']);
+
+    // Question Routes
+    Route::get('/quiz/{quiz_id}/questions', [QuestionController::class, 'index'])->name('question.index');
+    Route::get('/quiz/{quiz_id}/questions/create', [QuestionController::class, 'create'])->name('question.create');
+    Route::post('/question/store', [QuestionController::class, 'store'])->name('question.store');
+    Route::get('/question/{id}/edit', [QuestionController::class, 'edit'])->name('question.edit');
+    Route::post('/question/{id}/update', [QuestionController::class, 'update'])->name('question.update');
+    Route::delete('/question/{id}/delete', [QuestionController::class, 'destroy'])->name('question.destroy');
     Route::post('student/status', [StudentController::class, 'updateStatus'])->name('student.status');
-    
-
-
+    Route::get('student/{id}/courses', [StudentController::class, 'getStudentCourses'])->name('student.get.courses');
+    Route::get('/quiz/{id}/attempts', [QuizController::class, 'attempts'])->name('quiz.attempts');
 });
 
 
@@ -124,12 +137,12 @@ Route::post('/remove/cart', [CartController::class, 'removeCartItem'])->name('ca
 
 
 ////*********************************Checkout************************ */
-Route::get('checkout',[CheckoutController::class,'index'])->name('checkout.index')->middleware('auth:web');
+Route::get('checkout', [CheckoutController::class, 'index'])->name('checkout.index')->middleware('auth:web');
 ////*********************************End-Checkout************************ */
 
 /// ********************************coupon **********************************************
-    Route::post("apply-coupon", [CouponController::class, 'applyCoupon'])->name('apply-coupon');
-    Route::post("apply-checkout-coupon", [CouponController::class, 'applyCheckoutCoupon'])->name('checkoutCoupon');
+Route::post("apply-coupon", [CouponController::class, 'applyCoupon'])->name('apply-coupon');
+Route::post("apply-checkout-coupon", [CouponController::class, 'applyCheckoutCoupon'])->name('checkoutCoupon');
 ////*********************************End-coupon************************ */
 /*  Google Route  */
 
@@ -141,6 +154,14 @@ Route::get('/auth/google/callback', [SocialController::class, 'googleAuthenticat
 Route::group(['middleware' => ['auth:web']], function () {
     Route::post("order", [OrderController::class, 'order'])->name('order');
     Route::get("success", [OrderController::class, 'success'])->name('success');
+
+    // Student Quiz Routes
+    Route::controller(StudentQuizController::class)->group(function () {
+        Route::get('/student/my-quizzes', 'myQuizzes')->name('student.my.quizzes');
+        Route::get('/student/course/{course_id}/quizzes', 'index')->name('student.course.quizzes');
+        Route::get('/student/quiz/{id}', 'show')->name('student.quiz.show');
+        Route::post('/student/quiz/{id}/submit', 'submit')->name('student.quiz.submit');
+    });
     Route::get("payment-cancel", [OrderController::class, 'cancel'])->name('cancel');
 });
 ////*********************************End-order************************ */
@@ -163,9 +184,9 @@ Route::group([
     Route::get('course/{id}', [StudentCourseController::class, 'show'])->name('course.show');
 
     //course video show
-Route::get('/course/video/{lecture}', [StudentCourseController::class, 'showVideo'])
-    ->name('course.video')
-    ->middleware('auth:web'); // بس للمستخدمين المسجلين
+    Route::get('/course/video/{lecture}', [StudentCourseController::class, 'showVideo'])
+        ->name('course.video')
+        ->middleware('auth:web'); // بس للمستخدمين المسجلين
     //end course show
 
 

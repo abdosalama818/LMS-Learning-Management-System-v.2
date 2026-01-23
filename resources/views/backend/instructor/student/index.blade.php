@@ -19,7 +19,7 @@
         <!--end breadcrumb-->
         <div style="display: flex; align-items:center; justify-content:space-between">
             <h6 class="mb-0 text-uppercase">All Student</h6>
-            <a href="{{route('instructor.student.create')}}" class="btn btn-primary">Add Student</a>
+            <a href="{{ route('instructor.student.create') }}" class="btn btn-primary">Add Student</a>
 
         </div>
 
@@ -42,58 +42,68 @@
                         </thead>
                         <tbody>
                             <?php
-                            $index = 0 ; 
+                            $index = 0;
                             ?>
-                            @foreach($students as $student)
-                            <tr>
-                                <td>{{$index+1}}</td>
-                           
-                                <td>
-                                    {{$student->name}}
-                                </td>
+                            @foreach ($students as $student)
+                                <tr>
+                                    <td>{{ $index + 1 }}</td>
 
-                                <td>{{$student->student_email}}</td>
-                                <td>
-                                    show courses
-                                </td>
-                                <td>{{$student->start_date}}</td>
-                                <td>{{$student->end_date}}</td>
-                             <td>
-                                        <div class="form-check form-switch" >
-                                            <input class="form-check-input" style="cursor: pointer" type="checkbox" role="switch"
-                                                id="flexSwitchCheckDefault{{ $student->id }}"
+                                    <td>
+                                        {{ $student->name }}
+                                    </td>
+
+                                    <td>{{ $student->student_email }}</td>
+                                    <td>
+                                        <button class="btn btn-info btn-sm text-white show-courses-btn"
+                                            data-id="{{ $student->id }}">
+                                            <i class="bx bx-show"></i> Show Courses
+                                        </button>
+                                    </td>
+                                    <td>{{ $student->start_date }}</td>
+                                    <td>{{ $student->end_date }}</td>
+                                    <td>
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" style="cursor: pointer" type="checkbox"
+                                                role="switch" id="flexSwitchCheckDefault{{ $student->id }}"
                                                 data-student-id="{{ $student->id }}"
                                                 {{ $student->status == 'active' ? 'checked' : 'inactive' }}>
                                         </div>
                                     </td>
 
 
-                                <td>
-                                    <a href="{{route('instructor.student.edit', $student->id)}}" class="btn btn-primary">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-                                            <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-                                            <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
-                                          </svg>
-                                    </a>
+                                    <td>
+                                        <a href="{{ route('instructor.student.edit', $student->id) }}"
+                                            class="btn btn-primary">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                                                <path
+                                                    d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                                                <path fill-rule="evenodd"
+                                                    d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
+                                            </svg>
+                                        </a>
 
-                                    <a href="javascript:void(0)" class="btn btn-danger delete-category" data-id="{{ $student->id }}" style="margin-left: 10px">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
-                                            <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
-                                        </svg>
-                                    </a>
+                                        <a href="javascript:void(0)" class="btn btn-danger delete-category"
+                                            data-id="{{ $student->id }}" style="margin-left: 10px">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
+                                                <path
+                                                    d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5" />
+                                            </svg>
+                                        </a>
 
-                                    <form id="delete-form" method="POST" style="display: none;">
-                                        @csrf
-                                        @method('DELETE')
-                                    </form>
-
-                                 
+                                        <form id="delete-form" method="POST" style="display: none;">
+                                            @csrf
+                                            @method('DELETE')
+                                        </form>
 
 
 
 
-                                </td>
-                            </tr>
+
+
+                                    </td>
+                                </tr>
                             @endforeach
                         </tbody>
 
@@ -105,17 +115,103 @@
 
 
     </div>
+
+    <!-- Courses Modal -->
+    <div class="modal fade" id="coursesModal" tabindex="-1" aria-labelledby="coursesModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="coursesModalLabel">Student Courses</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="loading" class="text-center py-3">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+                    <div id="coursesList">
+                        <!-- Courses will be loaded here -->
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @push('scripts')
+    <script>
+        $(document).ready(function() {
+            // Handle Show Courses Click
+            $('.show-courses-btn').on('click', function() {
+                var studentId = $(this).data('id');
+                var modal = new bootstrap.Modal(document.getElementById('coursesModal'));
+                var list = $('#coursesList');
+                var loading = $('#loading');
+                var title = $('#coursesModalLabel');
 
-<script>
+                // Reset Modal
+                list.empty();
+                loading.show();
+                title.text('Loading...');
+                modal.show();
 
-    $(document).ready(function() {
+                // Fetch Courses
+                $.ajax({
+                    url: '/instructor/dashboard/student/' + studentId + '/courses',
+                    type: 'GET',
+                    success: function(response) {
+                        loading.hide();
+                        if (response.success) {
+                            title.text(response.student_name + "'s Courses");
+
+                            if (response.courses.length > 0) {
+                                response.courses.forEach(function(course) {
+                                    var imageHtml = course.image ?
+                                        '<img src="' + course.image +
+                                        '" class="img-fluid rounded-start w-100" style="height: 80px; object-fit: cover;" alt="Course Image">' :
+                                        '<div class="d-flex align-items-center justify-content-center bg-light rounded-start w-100" style="height: 80px;"><i class="bx bx-book fs-3 text-secondary"></i></div>';
+
+                                    var item = `
+                                    <div class="card mb-3 border shadow-none">
+                                        <div class="row g-0 align-items-center">
+                                            <div class="col-md-3">
+                                                ${imageHtml}
+                                            </div>
+                                            <div class="col-md-9">
+                                                <div class="card-body">
+                                                    <h6 class="card-title fw-bold text-dark mb-0">${course.course_name}</h6>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                `;
+                                    list.append(item);
+                                });
+                            } else {
+                                list.html(
+                                    '<li class="list-group-item text-center text-muted border-0">No courses found for this student.</li>'
+                                );
+                            }
+                        }
+                    },
+                    error: function() {
+                        loading.hide();
+                        list.html(
+                            '<li class="list-group-item text-center text-danger border-0">Failed to load courses. Please try again.</li>'
+                        );
+                    }
+                });
+            });
+
+
             $('.form-check-input').on('change', function() {
                 const studentId = $(this).data('student-id'); // Get user ID
 
-                const status = $(this).is(':checked') ? 'active' : 'inactive'; 
+                const status = $(this).is(':checked') ? 'active' : 'inactive';
                 const row = $(this).closest('tr'); // Find the parent row of the checkbox
 
                 $.ajax({
@@ -181,26 +277,25 @@
 
 
 
-    $(document).on('click', '.delete-category', function (e) {
-        e.preventDefault();
+        $(document).on('click', '.delete-category', function(e) {
+            e.preventDefault();
 
-        let studentId = $(this).data('id');
-        let deleteUrl = "{{ route('instructor.student.destroy', ':id') }}".replace(':id', studentId);
+            let studentId = $(this).data('id');
+            let deleteUrl = "{{ route('instructor.student.destroy', ':id') }}".replace(':id', studentId);
 
-        Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                $('#delete-form').attr('action', deleteUrl).submit();
-            }
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $('#delete-form').attr('action', deleteUrl).submit();
+                }
+            });
         });
-    });
-</script>
-
+    </script>
 @endpush

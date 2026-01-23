@@ -25,7 +25,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/laravel-echo@1.11.3/dist/echo.js"></script>
 
-<script>
+{{-- <script>
     document.addEventListener('contextmenu', e => e.preventDefault());
     document.addEventListener('keydown', function(e) {
         if (e.key === 'F12' ||
@@ -33,7 +33,7 @@
             e.preventDefault();
         }
     });
-</script>
+</script> --}}
 <script>
     @if (session('success'))
         Swal.fire({

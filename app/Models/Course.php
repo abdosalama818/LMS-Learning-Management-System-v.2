@@ -8,34 +8,31 @@ use Illuminate\Support\Str;
 
 class Course extends Model
 {
-   protected $guarded = [];
+    protected $guarded = [];
 
 
 
-   protected static function booted()
-{
+    protected static function booted()
+    {
 
-     static::addGlobalScope('active', function ($query) {
+        static::addGlobalScope('active', function ($query) {
 
-        if (request()->is('/*') && auth('web')->check()) {
-             $query->where('status', 1);
-        }
+            if (request()->is('/*') && auth('web')->check()) {
+                $query->where('status', 1);
+            }
+        });
 
-     
-    });
 
-   
         static::saving(function ($course) {
-        $course->course_name_slug = makeArabicSlug($course->course_name);
-    });
-     $clearCache = function () {
-        Cache::forget(Category::CACHE_KEY_COURSES);
-    };
+            $course->course_name_slug = makeArabicSlug($course->course_name);
+        });
+        $clearCache = function () {
+            Cache::forget(Category::CACHE_KEY_COURSES);
+        };
 
-    static::saved($clearCache);
-    static::deleted($clearCache);
-
-}
+        static::saved($clearCache);
+        static::deleted($clearCache);
+    }
 
 
     public function category()
@@ -73,10 +70,13 @@ class Course extends Model
         return $this->belongsToMany(Student::class, 'course_student', 'course_id', 'student_id');
     }
 
+    public function quizzes()
+    {
+        return $this->hasMany(Quiz::class, 'course_id', 'id');
+    }
 
-
-
-
-
-
+    public function zoomMeetings()
+    {
+        return $this->hasMany(ZoomMeeting::class, 'course_id', 'id');
+    }
 }

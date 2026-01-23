@@ -50,7 +50,7 @@ class StudentController extends Controller
     {
         DB::beginTransaction();
         try {
-           
+
             $student = $this->studentService->storeStudent($request->validated());
             DB::commit();
             return redirect()->route('instructor.student.index')->with('success', 'Student created successfully');
@@ -71,29 +71,29 @@ class StudentController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-  public function edit($id)
-{
-    $courses = Course::where('instructor_id', $this->authId)->get();
-    $student = Student::with('courses')->findOrFail($id);
+    public function edit($id)
+    {
+        $courses = Course::where('instructor_id', $this->authId)->get();
+        $student = Student::with('courses')->findOrFail($id);
 
-    // IDs الكورسات المرتبطة بالطالب
-    $studentCourseIds = $student->courses->pluck('id')->toArray();
+        // IDs الكورسات المرتبطة بالطالب
+        $studentCourseIds = $student->courses->pluck('id')->toArray();
 
-    return view(
-        'backend.instructor.student.edit',
-        compact('courses', 'student', 'studentCourseIds')
-    );
-}
+        return view(
+            'backend.instructor.student.edit',
+            compact('courses', 'student', 'studentCourseIds')
+        );
+    }
 
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(string $id , StudentInstructoreRequest $request)
+    public function update(string $id, StudentInstructoreRequest $request)
     {
-          DB::beginTransaction();
+        DB::beginTransaction();
         try {
-           
+
             $student = $this->studentService->updateStudent($request, $id);
             DB::commit();
             return redirect()->route('instructor.student.index')->with('success', 'Student updated successfully');
@@ -108,7 +108,7 @@ class StudentController extends Controller
      */
     public function destroy(string $id)
     {
-          DB::beginTransaction();
+        DB::beginTransaction();
         try {
             $student = Student::findOrFail($id);
             $this->studentService->deleteStudent($student);
@@ -121,30 +121,47 @@ class StudentController extends Controller
     }
 
 
-  public function updateStatus(Request $request)
-{
-    DB::beginTransaction();
-    try {
-        // جلب الطالب
-        $student = Student::findOrFail($request->student_id);
-        $student->status = $request->status;
-        $student->save();
+    public function updateStatus(Request $request)
+    {
+        DB::beginTransaction();
+        try {
+            // جلب الطالب
+            $student = Student::findOrFail($request->student_id);
+            $student->status = $request->status;
+            $student->save();
 
-        // تحديث الـ User المرتبط
-        if ($student->user_id) {
-            $user = User::find($student->user_id);
-            if ($user) {
-                $user->status = $request->status;
-                $user->save();
+            // تحديث الـ User المرتبط
+            if ($student->user_id) {
+                $user = User::find($student->user_id);
+                if ($user) {
+                    $user->status = $request->status;
+                    $user->save();
+                }
             }
+
+            DB::commit();
+            return response()->json(['success' => true, 'message' => 'Student status updated successfully!']);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json(['success' => false, 'message' => 'Student not found!' . $e->getMessage()]);
         }
-
-        DB::commit();
-        return response()->json(['success' => true, 'message' => 'Student status updated successfully!']);
-    } catch (\Exception $e) {
-        DB::rollBack();
-           return response()->json(['success' => false, 'message' => 'Student not found!' . $e->getMessage()]);
     }
-}
 
+    public function getStudentCourses($id)
+    {
+        $student = Student::with('courses')->findOrFail($id);
+
+        $courses = $student->courses->map(function ($course) {
+            return [
+                'course_name' => $course->course_name,
+                'image' => $course->course_image ? asset('uploads/' . $course->course_image) : null, // Assuming there's an image field
+            ];
+        });
+
+        return response()->json([
+            'success' => true,
+            'student_name' => $student->name,
+            'courses' => $courses
+        ]);
+    }
 }
